@@ -60,7 +60,7 @@ input[type="button"] {
 }
 
 
-.break {
+.firstbreak, #break {
     background-color: #000;
     margin: 0 0 1rem;
     padding: 0;
@@ -84,8 +84,8 @@ input[type="button"] {
 
 <body>
     <form id="mainform">
-        <input type="text" name="recipe" id="recipe">
-        <hr class="break">
+        <input type="text" name="recipe" id="recipe" placeholder="click to edit" onchange="update_url()">
+        <hr class="firstbreak">
     </form>
 
 </body>
@@ -106,14 +106,14 @@ input[type="button"] {
         if (value !== '' && name == 'value') element.setAttribute("oldvalue",value);
         element.setAttribute("placeholder", placeholder);
         if (onchange == 'recalculate') element.onchange = function() { recalculate (element) }
-        if (onchange == 'update_url') element.onchange = function() { update_url (element) }
+        if (onchange == 'update_url') element.onchange = function() { update_url () }
         
         return element;
     }
 
     function recalculate (element) {
         if (element.name === "ingredient") {
-            update_url(element);
+            update_url();
             return;
         }
         if (typeof element.getAttribute("oldvalue") === 'undefined' || 
@@ -123,7 +123,6 @@ input[type="button"] {
                 if (element.value != null) element.setAttribute("oldvalue", element.value);
                 return;
             }
-        //console.log(element.getAttribute("oldvalue")); return;
         var factor = strip(element.value / element.getAttribute("oldvalue"));
 		var form = document.getElementById("mainform");
 		element.setAttribute("oldvalue", element.value);
@@ -135,10 +134,10 @@ input[type="button"] {
 				input.setAttribute("oldvalue", newval);
 			}
 	    });
-        update_url(element);
+        update_url();
     }
 
-    function update_url(element) {
+    function update_url() {
 		var form = document.getElementById("mainform");
 		var url  = [];
 		var urlparts = [];
@@ -161,64 +160,62 @@ input[type="button"] {
 		window.location = '?' + url_new.join('&');
     }
 
-    const   queryString = window.location.search;
-            urlParams   = new URLSearchParams(queryString);
+    function add_empty () {
+        var value = MycreateElement('value', '', 'Menge', 'recalculate');
+        document.getElementById("mainform").insertBefore(value, document.getElementById("break"));
+        value.focus();
+        document.getElementById("mainform").insertBefore(MycreateElement('unit', '', 'g', ''), document.getElementById("break"));
+        document.getElementById("mainform").insertBefore(MycreateElement('ingredient', '', 'Zutat', 'update_url'), document.getElementById("break"));
+        document.getElementById("mainform").insertBefore(document.createElement("br"), document.getElementById("break"));
+    }
+
+    const   urlParams   = new URLSearchParams(window.location.search);
             entries     = urlParams.entries();
 
     if (urlParams.has("recipe")) {
         document.getElementById("recipe").setAttribute("value", urlParams.get("recipe"));
-        document.title =urlParams.get("recipe");
+        document.title = urlParams.get("recipe");
     }
 
+    var has_edit = false;
     for (const entry of entries) {
         if (entry[0].split(splitchar)[0] == '' || entry[0].split(splitchar)[0] == 'recipe') continue;
         document.getElementById("mainform").append(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));
         document.getElementById("mainform").append(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
         document.getElementById("mainform").append(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
         document.getElementById("mainform").append(document.createElement("br"));
+        has_edit = true;
     }
 
+    if (!has_edit) add_empty();
+
     var hr = document.createElement("hr");
-    hr.setAttribute("class", 'break');
+    hr.setAttribute("id", 'break');
     document.getElementById("mainform").append(hr);
     
     var add = document.createElement("input")
     add.setAttribute("type", "button");
     add.setAttribute("value", "+");
-    add.setAttribute("id", "add");
     add.onclick = function() {
-        var value = MycreateElement('value', '', 'Menge', 'recalculate');
-        document.getElementById("mainform").insertBefore(value, document.getElementById("add"));
-        value.focus();
-        document.getElementById("mainform").insertBefore(MycreateElement('unit', '', 'g', ''), document.getElementById("add"));
-        document.getElementById("mainform").insertBefore(MycreateElement('ingredient', '', 'Zutat', 'update_url'), document.getElementById("add"));
-        document.getElementById("mainform").insertBefore(document.createElement("br"), document.getElementById("add"));
+        add_empty();
     }
     document.getElementById("mainform").append(add);
 
     var del = document.createElement("input")
     del.setAttribute("type", "button");
     del.setAttribute("value", "−");
-    del.setAttribute("id", "del");
     del.onclick = function() {
-        var select = document.getElementsByClassName("value");
-        document.getElementsByClassName("value")[select.length - 1].remove();
-        select = document.getElementsByClassName("unit");
-        document.getElementsByClassName("unit")[select.length - 1].remove();
-        select = document.getElementsByClassName("ingredient");
-        document.getElementsByClassName("ingredient")[select.length - 1].remove();
-        select = document.getElementsByTagName("br");
-        document.getElementsByTagName("br")[select.length - 1].remove();
-        update_url(this);
+        var count = document.getElementsByClassName("value");
+        document.getElementsByClassName("value")[count.length - 1].remove();
+        var count = document.getElementsByClassName("unit");
+        document.getElementsByClassName("unit")[count.length - 1].remove();
+        var count = document.getElementsByClassName("ingredient");
+        document.getElementsByClassName("ingredient")[count.length - 1].remove();
+        var count = document.getElementsByTagName("br");
+        document.getElementsByTagName("br")[count.length - 1].remove();
+        update_url();
     }
     document.getElementById("mainform").append(del);
-    /*
-    var save = document.createElement("input")
-    save.setAttribute("type", "button");
-    save.setAttribute("value", "save");
-    save.onclick = function() { update_url(this) }
-    document.getElementById("mainform").append(save);
-    */
 
 </script>
 </html>

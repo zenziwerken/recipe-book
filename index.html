@@ -28,27 +28,28 @@ input[type="button"] {
     padding: 0 0 0.1rem;
 }
 .value, .unit, .ingredient, #recipe {
-    margin: 1rem 0 0 0;
+    margin: 1rem 0.1rem 0 0;
     padding: 0.5rem;
     font-size: 1rem;
     border-radius: 0.5rem;
     border: none;
 }
 .value {
-    width: 6rem;
+    width: 10%;
     text-align: right;
     background-color: #eee;
 }
 .unit {
-    width: 3rem;
+    width: 10%;
 }
 .ingredient {
-    width: 20rem;
+    width: 75%;
 }
 #recipe {    
     display: block;
     border-bottom: 1px solid #000;
     border-radius: 0;
+    width: calc(100vw - 4rem);
 }
 #recipe:focus {
     border-bottom: unset;

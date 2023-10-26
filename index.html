@@ -7,9 +7,8 @@
     <title>Rezepte</title>
 <style>
 body {
-    font-size: 1.2rem;
     margin: 0;
-    padding: 2rem 4rem;
+    padding: 1rem 2rem;
   font-style: normal;
 }
 input {
@@ -21,33 +20,39 @@ input::placeholder {
 }
 input[type="button"] {
     margin: 0.5rem 1rem 0 0;
-    font-size: 2.5rem;
-    border-radius: 2rem;
+    font-size: 1.5rem;
+    border-radius: 1.1rem;
     border: none;
     font-weight: 100;
-    height: 4rem;
-    width: 4rem;
+    width: 2.2rem;
+    padding: 0 0 0.1rem;
 }
 .value, .unit, .ingredient, #recipe {
-    margin: 0.5rem 0.1rem;
+    margin: 1rem 0 0 0;
     padding: 0.5rem;
-    font-size: 2rem;
+    font-size: 1rem;
     border-radius: 0.5rem;
     border: none;
 }
 .value {
-    width: 8rem;
+    width: 6rem;
     text-align: right;
     background-color: #eee;
 }
 .unit {
-    width: 4rem;
+    width: 3rem;
 }
 .ingredient {
     width: 20rem;
 }
-#recipe {
-    display:block;
+#recipe {    
+    display: block;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+}
+#recipe:focus {
+    border-bottom: unset;
+    border-radius: 0.5rem;
 }
 @media print
 {    

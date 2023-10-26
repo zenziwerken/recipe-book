@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="imagetoolbar" content="no" />
-    <title>Rezepte</title>
+    <title>Rezept</title>
 <style>
 body {
     margin: 0;
@@ -19,16 +19,25 @@ input::placeholder {
     color: silver;
 }
 input[type="button"] {
-    margin: 0.5rem 1rem 0 0;
+    margin: 0 1rem 0 0;
     font-size: 1.5rem;
     border-radius: 1.1rem;
     border: none;
     font-weight: 100;
     width: 2.2rem;
+    height: 2.2rem;
     padding: 0 0 0.1rem;
 }
-.value, .unit, .ingredient, #recipe {
-    margin: 1rem 0.1rem 0 0;
+#recipe {    
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    margin: 1rem 0.1rem 1rem 0;
+    width: calc(100vw - 4rem);
+}
+.value, .unit, .ingredient {
+    margin: 0 0.1rem 1rem 0;
     padding: 0.5rem;
     font-size: 1rem;
     border-radius: 0.5rem;
@@ -49,15 +58,12 @@ input[type="button"] {
     min-width: 10rem;
     width: 50%
 }
-#recipe {    
-    display: block;
-    border-bottom: 1px solid #000;
-    border-radius: 0;
-    width: calc(100vw - 4rem);
-}
-#recipe:focus {
-    border-bottom: unset;
-    border-radius: 0.5rem;
+
+
+.break {
+    background-color: #000;
+    margin: 0 0 1rem;
+    padding: 0;
 }
 @media print
 {    
@@ -79,6 +85,7 @@ input[type="button"] {
 <body>
     <form id="mainform">
         <input type="text" name="recipe" id="recipe">
+        <hr class="break">
     </form>
 
 </body>
@@ -158,7 +165,10 @@ input[type="button"] {
             urlParams   = new URLSearchParams(queryString);
             entries     = urlParams.entries();
 
-    if (urlParams.has("recipe")) document.getElementById("recipe").setAttribute("value", urlParams.get("recipe"));
+    if (urlParams.has("recipe")) {
+        document.getElementById("recipe").setAttribute("value", urlParams.get("recipe"));
+        document.title =urlParams.get("recipe");
+    }
 
     for (const entry of entries) {
         if (entry[0].split(splitchar)[0] == '' || entry[0].split(splitchar)[0] == 'recipe') continue;
@@ -167,6 +177,10 @@ input[type="button"] {
         document.getElementById("mainform").append(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
         document.getElementById("mainform").append(document.createElement("br"));
     }
+
+    var hr = document.createElement("hr");
+    hr.setAttribute("class", 'break');
+    document.getElementById("mainform").append(hr);
     
     var add = document.createElement("input")
     add.setAttribute("type", "button");

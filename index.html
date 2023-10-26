@@ -10,7 +10,6 @@ body {
     font-size: 1.2rem;
     margin: 0;
     padding: 2rem 4rem;
-	
   font-style: normal;
 }
 input {
@@ -75,6 +74,8 @@ input[type="button"] {
 </body>
 
 <script>
+    const splitchar = '_';
+
     function strip(number) {
         return Math.round(parseFloat(number) * 100) / 100;
     }
@@ -131,7 +132,7 @@ input[type="button"] {
 
 			if (input.type === "text" && input.name === "ingredient") {
 				urlparts.push(encodeURIComponent(input.value));
-				url.push(urlparts.join('|'));
+				url.push(urlparts.join(splitchar));
 				urlparts = [];
 			}
 			if (input.type === "text" && input.name === "recipe") {
@@ -150,10 +151,10 @@ input[type="button"] {
     if (urlParams.has("recipe")) document.getElementById("recipe").setAttribute("value", urlParams.get("recipe"));
 
     for (const entry of entries) {
-        if (entry[0].split('|')[0] == '' || entry[0].split('|')[0] == 'recipe') continue;
-        document.getElementById("mainform").append(MycreateElement('value', entry[0].split('|')[0], 'Menge', 'recalculate'));
-        document.getElementById("mainform").append(MycreateElement('unit', entry[0].split('|')[1], 'g', ''));
-        document.getElementById("mainform").append(MycreateElement('ingredient', entry[0].split('|')[2],'Zutat', 'update_url'));
+        if (entry[0].split(splitchar)[0] == '' || entry[0].split(splitchar)[0] == 'recipe') continue;
+        document.getElementById("mainform").append(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));
+        document.getElementById("mainform").append(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
+        document.getElementById("mainform").append(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
         document.getElementById("mainform").append(document.createElement("br"));
     }
     

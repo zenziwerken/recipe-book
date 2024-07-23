@@ -65,6 +65,15 @@ input[type="button"] {
     margin: 0 0 1rem;
     padding: 0;
 }
+
+.active {
+    background: no-repeat center url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='DimGray' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z'%3E%3C/path%3E%3Cpath d='M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z'%3E%3C/path%3E%3C/svg%3E"), #F0F0F0;
+}
+
+.inactive {
+    background: no-repeat center url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='silver' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z'%3E%3C/path%3E%3Cpath d='M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z'%3E%3C/path%3E%3C/svg%3E"), #F0F0F0;
+}
+
 @media print
 {    
     input[type="button"] {
@@ -92,6 +101,7 @@ input[type="button"] {
 
 <script>
     const splitchar = '_';
+    var calc_active = false;
 
     function strip(number) {
         return Math.round(parseFloat(number) * 100) / 100;
@@ -112,6 +122,7 @@ input[type="button"] {
     }
 
     function recalculate (element) {
+        if (!calc_active) return;
         if (element.name === "ingredient") {
             update_url();
             return;
@@ -156,6 +167,7 @@ input[type="button"] {
 				urlparts = [];
 			}
 	    });
+        url.push('calc=' + calc_active);
 		var url_new = url.filter(value => Object.keys(value).length !== 0)
 		window.location = '?' + url_new.join('&');
     }
@@ -169,6 +181,17 @@ input[type="button"] {
         document.getElementById("mainform").insertBefore(document.createElement("br"), document.getElementById("break"));
     }
 
+    
+    function toggle_calc() {
+        calc_active = !calc_active;
+        if (calc_active) {
+            document.getElementById("calc").setAttribute("class", "active");
+        } else {
+            document.getElementById("calc").setAttribute("class", "inactive");
+        }
+       // update_url () ;
+    }
+
     const   urlParams   = new URLSearchParams(window.location.search);
             entries     = urlParams.entries();
 
@@ -176,10 +199,14 @@ input[type="button"] {
         document.getElementById("recipe").setAttribute("value", urlParams.get("recipe"));
         document.title = urlParams.get("recipe");
     }
+    if (urlParams.has("calc")) {
+        calc_active = (urlParams.get("calc").toLowerCase() === 'true');
+    }
+
 
     var has_edit = false;
     for (const entry of entries) {
-        if (entry[0].split(splitchar)[0] == '' || entry[0].split(splitchar)[0] == 'recipe') continue;
+        if (entry[0].split(splitchar)[0] == '' || entry[0].split(splitchar)[0] == 'recipe' || entry[0].split(splitchar)[0] == 'calc') continue;
         document.getElementById("mainform").append(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));
         document.getElementById("mainform").append(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
         document.getElementById("mainform").append(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
@@ -216,6 +243,21 @@ input[type="button"] {
         update_url();
     }
     document.getElementById("mainform").append(del);
+
+    var calc = document.createElement("input")
+    calc.setAttribute("type", "button");
+    calc.setAttribute("value", " ");
+    if (calc_active) {
+        calc.setAttribute("class", "active");
+    } else {
+        calc.setAttribute("class", "inactive");
+    }
+    calc.setAttribute("id", "calc");
+    calc.onclick = function() {
+        toggle_calc();
+    }
+    document.getElementById("mainform").append(calc);
+    
 
 </script>
 </html>

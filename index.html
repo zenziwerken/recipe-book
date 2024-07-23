@@ -181,7 +181,6 @@ input[type="button"] {
         document.getElementById("mainform").insertBefore(document.createElement("br"), document.getElementById("break"));
     }
 
-    
     function toggle_calc() {
         calc_active = !calc_active;
         if (calc_active) {
@@ -189,7 +188,6 @@ input[type="button"] {
         } else {
             document.getElementById("calc").setAttribute("class", "inactive");
         }
-       // update_url () ;
     }
 
     const   urlParams   = new URLSearchParams(window.location.search);
@@ -199,10 +197,10 @@ input[type="button"] {
         document.getElementById("recipe").setAttribute("value", urlParams.get("recipe"));
         document.title = urlParams.get("recipe");
     }
+
     if (urlParams.has("calc")) {
         calc_active = (urlParams.get("calc").toLowerCase() === 'true');
     }
-
 
     var has_edit = false;
     for (const entry of entries) {

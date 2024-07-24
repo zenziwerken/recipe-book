@@ -18,6 +18,15 @@ input {
 input::placeholder {
     color: silver;
 }
+ul {
+    padding: 0; 
+    margin: 0;
+}
+li {
+    list-style-type: none;
+    padding: 0; 
+    margin: 0;
+}
 input[type="button"] {
     margin: 0 1rem 0 0;
     font-size: 1.5rem;
@@ -95,6 +104,10 @@ input[type="button"] {
     <form id="mainform">
         <input type="text" name="recipe" id="recipe" placeholder="click to edit" onchange="update_url()">
         <hr class="firstbreak">
+        <div class="sortable-list">
+            <ul id="sortable">
+            </ul>
+        </div>
     </form>
 
 </body>
@@ -122,8 +135,8 @@ input[type="button"] {
     }
 
     function recalculate (element) {
-        if (!calc_active) return;
-        if (element.name === "ingredient") {
+
+        if (!calc_active || element.name === "ingredient") {
             update_url();
             return;
         }
@@ -173,12 +186,16 @@ input[type="button"] {
     }
 
     function add_empty () {
+        var li = document.createElement("li");
+        li.setAttribute("draggable", "true");
+        li.setAttribute("class", "entry");
         var value = MycreateElement('value', '', 'Menge', 'recalculate');
-        document.getElementById("mainform").insertBefore(value, document.getElementById("break"));
+        li.appendChild(value);
         value.focus();
-        document.getElementById("mainform").insertBefore(MycreateElement('unit', '', 'g', ''), document.getElementById("break"));
-        document.getElementById("mainform").insertBefore(MycreateElement('ingredient', '', 'Zutat', 'update_url'), document.getElementById("break"));
-        document.getElementById("mainform").insertBefore(document.createElement("br"), document.getElementById("break"));
+        li.appendChild(MycreateElement('unit', '', 'g', ''));
+        li.appendChild(MycreateElement('ingredient', '', 'Zutat', 'update_url'));
+        document.getElementById("sortable").appendChild(li);
+
     }
 
     function toggle_calc() {
@@ -205,10 +222,13 @@ input[type="button"] {
     var has_edit = false;
     for (const entry of entries) {
         if (entry[0].split(splitchar)[0] == '' || entry[0].split(splitchar)[0] == 'recipe' || entry[0].split(splitchar)[0] == 'calc') continue;
-        document.getElementById("mainform").append(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));
-        document.getElementById("mainform").append(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
-        document.getElementById("mainform").append(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
-        document.getElementById("mainform").append(document.createElement("br"));
+        var li = document.createElement("li");
+        li.setAttribute("draggable", "true");
+        li.setAttribute("class", "entry");
+        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));        
+        li.appendChild(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
+        li.appendChild(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
+        document.getElementById("sortable").appendChild(li);
         has_edit = true;
     }
 
@@ -230,14 +250,8 @@ input[type="button"] {
     del.setAttribute("type", "button");
     del.setAttribute("value", "−");
     del.onclick = function() {
-        var count = document.getElementsByClassName("value");
-        document.getElementsByClassName("value")[count.length - 1].remove();
-        var count = document.getElementsByClassName("unit");
-        document.getElementsByClassName("unit")[count.length - 1].remove();
-        var count = document.getElementsByClassName("ingredient");
-        document.getElementsByClassName("ingredient")[count.length - 1].remove();
-        var count = document.getElementsByTagName("br");
-        document.getElementsByTagName("br")[count.length - 1].remove();
+        var count = document.getElementsByClassName("entry");
+        document.getElementsByClassName("entry")[count.length - 1].remove();
         update_url();
     }
     document.getElementById("mainform").append(del);
@@ -255,7 +269,75 @@ input[type="button"] {
         toggle_calc();
     }
     document.getElementById("mainform").append(calc);
-    
 
+    // inspired by https://www.geeksforgeeks.org/create-a-drag-and-drop-sortable-list-using-html-css-javascript/
+    
+    const sortableList = document.getElementById("sortable");
+    let draggedItem = null;
+    
+    sortableList.addEventListener(
+        "dragstart",
+        (e) => {
+            draggedItem = e.target;
+            setTimeout(() => { 
+                e.target.style.display = "none"; 
+            }, 0);
+    });
+    
+    sortableList.addEventListener(
+        "dragend",
+        (e) => {
+            setTimeout(() => {
+                e.target.style.display = "";
+                draggedItem = null;
+            }, 0);
+            update_url();
+    });
+
+    sortableList.addEventListener(
+        "dragover",
+        (e) => {
+            e.preventDefault();
+            const afterElement =
+                getDragAfterElement(sortableList, e.clientY);
+            const currentElement =
+                document.querySelector(
+                    ".dragging");
+            if (afterElement == null) {
+                sortableList.appendChild(draggedItem);
+            } else {
+                sortableList.insertBefore(draggedItem,afterElement);
+            }
+        });
+    
+    const getDragAfterElement = (
+        container, y
+    ) => {
+        const draggableElements = [
+            ...container.querySelectorAll(
+                "li:not(.dragging)"
+            ),];
+    
+        return draggableElements.reduce(
+            (closest, child) => {
+                const box =
+                    child.getBoundingClientRect();
+                const offset =
+                    y - box.top - box.height / 2;
+                if (
+                    offset < 0 &&
+                    offset > closest.offset) {
+                    return {
+                        offset: offset,
+                        element: child,
+                    };} 
+                else {
+                    return closest;
+                }},
+            {
+                offset: Number.NEGATIVE_INFINITY,
+            }
+        ).element;
+    };
 </script>
 </html>

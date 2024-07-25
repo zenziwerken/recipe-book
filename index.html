@@ -138,13 +138,13 @@ li.entry:before {
     function MycreateElement(name, value, placeholder, onchange) {
         var element = document.createElement("input");
         element.setAttribute("type", "text");
-        element.setAttribute("name", name);
+        element.setAttribute("name",  name);
         element.setAttribute("class", name);
         if (value !== '') element.setAttribute("value", value);
         if (value !== '' && name == 'value') element.setAttribute("oldvalue",value);
         element.setAttribute("placeholder", placeholder);
         if (onchange == 'recalculate') element.onchange = function() { recalculate (element) }
-        if (onchange == 'update_url') element.onchange = function() { update_url () }
+        if (onchange == 'update_url')  element.onchange = function() { update_url () }
         
         return element;
     }
@@ -200,24 +200,21 @@ li.entry:before {
     }
 
     function add_empty () {
-        var li = document.createElement("li");
-        li.setAttribute("draggable", "true");
-        li.setAttribute("class", "entry");
+        var li = document.createElement('li');
+        li.setAttribute('draggable', 'true');
+        li.setAttribute('class', 'entry');
         var value = MycreateElement('value', '', 'Menge', 'recalculate');
         li.appendChild(value);
         value.focus();
         li.appendChild(MycreateElement('unit', '', 'g', ''));
         li.appendChild(MycreateElement('ingredient', '', 'Zutat', 'update_url'));
-        document.getElementById("sortable").appendChild(li);
+        document.getElementById('sortable').appendChild(li);
     }
 
     function toggle_calc() {
         calc_active = !calc_active;
-        if (calc_active) {
-            document.getElementById("calc").setAttribute("class", "active");
-        } else {
-            document.getElementById("calc").setAttribute("class", "inactive");
-        }
+        var calc_class = (calc_active) ? 'active' : 'inactive';
+        document.getElementById('calc').setAttribute('class', calc_class);
     }
 
     const   urlParams   = new URLSearchParams(window.location.search);
@@ -238,7 +235,7 @@ li.entry:before {
         var li = document.createElement("li");
         li.setAttribute("draggable", "true");
         li.setAttribute("class", "entry");
-        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));        
+        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));
         li.appendChild(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
         li.appendChild(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
         document.getElementById("sortable").appendChild(li);
@@ -269,14 +266,11 @@ li.entry:before {
     }
     document.getElementById("mainform").append(del);
 
+    var calc_class = (calc_active) ? 'active' : 'inactive';
     var calc = document.createElement("input")
     calc.setAttribute("type", "button");
     calc.setAttribute("value", " ");
-    if (calc_active) {
-        calc.setAttribute("class", "active");
-    } else {
-        calc.setAttribute("class", "inactive");
-    }
+    calc.setAttribute('class', calc_class);
     calc.setAttribute("id", "calc");
     calc.onclick = function() {
         toggle_calc();
@@ -358,6 +352,7 @@ li.entry:before {
             }
         });
     }
+
     const getDragAfterElement = (container, y) => {
             const draggableElements = [...container.querySelectorAll("li:not(.dragging)")];
 

@@ -6,6 +6,8 @@ All inputs are added to the URL-parameter.
 When you add the URL to your bookmarks you can recall the recipe.
 If you activate the calculator button, changing values in a saved recipe will recalculate values of the other ingredients.
 
+The sorting of the ingredients can be adjusted by dragging and dropping.
+
 Try it life [here](https://zenziwerken.github.io/recipe-book/) or copy the html to your PC an use it offline.
 
 ![How-to](/How-to.gif)

@@ -82,18 +82,25 @@ input[type="button"] {
     background: no-repeat center url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='silver' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z'%3E%3C/path%3E%3Cpath d='M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z'%3E%3C/path%3E%3C/svg%3E"), #F0F0F0;
 }
 
+.sort_btn_active {
+    background: no-repeat center url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='16px' height='16px' viewBox='0 0 16 16'%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='1.5' y1='6.5' x2='14.5' y2='6.5'/%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='1.5' y1='9.5' x2='14.5' y2='9.5'/%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='8' y1='6' x2='8' y2='1'/%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='8' y1='1' x2='7' y2='2'/%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='9' y1='2' x2='8' y2='1'/%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='8' y1='10' x2='8' y2='15'/%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='8' y1='15' x2='9' y2='14'/%3E%3Cline stroke='DimGray' stroke-linecap='round' x1='7' y1='14' x2='8' y2='15'/%3E%3C/svg%3E"), #F0F0F0;
+}
 
-li.entry:before {
+.sort_btn_inactive {
+    background: no-repeat center url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='16px' height='16px' viewBox='0 0 16 16'%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='1.5' y1='6.5' x2='14.5' y2='6.5'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='1.5' y1='9.5' x2='14.5' y2='9.5'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='8' y1='6' x2='8' y2='1'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='8' y1='1' x2='7' y2='2'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='9' y1='2' x2='8' y2='1'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='8' y1='10' x2='8' y2='15'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='8' y1='15' x2='9' y2='14'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='7' y1='14' x2='8' y2='15'/%3E%3C/svg%3E"), #F0F0F0;
+}
+
+.entry.sortactive:before {
     background: no-repeat center url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' viewBox='0 0 16 16'%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='1.5' y1='3.5' x2='14.5' y2='3.5'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='1.5' y1='7.5' x2='14.5' y2='7.5'/%3E%3Cline stroke='%23B3B3B3' stroke-linecap='round' x1='1.5' y1='11.5' x2='14.5' y2='11.5'/%3E%3C/svg%3E");
     content: " ";
-    display:inline-block;
-    width: 16px;
     height: 16px;
+    width: 16px;
     margin:0 1rem 0 0;
+    display:inline-block;
 }
 
 .dragging {
-    opacity: 0.5; /* Reduziert die Sichtbarkeit, anstatt das Element auszublenden */
+    opacity: 0.4; /* Reduziert die Sichtbarkeit, anstatt das Element auszublenden */
 }
 
 @media print
@@ -130,6 +137,7 @@ li.entry:before {
     const touchscreen = (window.matchMedia("(pointer: coarse)").matches);
 
     var calc_active = false;
+    var sort_active = false;
 
     function strip(number) {
         return Math.round(parseFloat(number) * 100) / 100;
@@ -195,6 +203,7 @@ li.entry:before {
 			}
 	    });
         url.push('calc=' + calc_active);
+        url.push('sort=' + sort_active);
 		var url_new = url.filter(value => Object.keys(value).length !== 0)
 		window.location = '?' + url_new.join('&');
     }
@@ -202,7 +211,11 @@ li.entry:before {
     function add_empty () {
         var li = document.createElement('li');
         li.setAttribute('draggable', 'true');
-        li.setAttribute('class', 'entry');
+        if (sort_active) {
+            li.setAttribute('class', 'entry sortactive');
+        } else {
+            li.setAttribute('class', 'entry');
+        }
         var value = MycreateElement('value', '', 'Menge', 'recalculate');
         li.appendChild(value);
         value.focus();
@@ -217,6 +230,15 @@ li.entry:before {
         document.getElementById('calc').setAttribute('class', calc_class);
     }
 
+    function toggle_sort() {
+        document.querySelectorAll(".entry").forEach(el => {
+                el.classList.toggle("sortactive");
+            });
+        sort_active = !sort_active
+        var sort_class = (sort_active) ? 'sort_btn_active' : 'sort_btn_inactive';
+        document.getElementById('sort_btn').setAttribute('class', sort_class);
+    }
+
     const   urlParams   = new URLSearchParams(window.location.search);
             entries     = urlParams.entries();
 
@@ -229,12 +251,24 @@ li.entry:before {
         calc_active = (urlParams.get("calc").toLowerCase() === 'true');
     }
 
+    if (urlParams.has("sort")) {
+        sort_active = (urlParams.get("sort").toLowerCase() === 'true');
+        document.querySelectorAll(".entry").forEach(el => {
+                el.classList.toggle("sortactive");
+            });
+    }
+
     var has_edit = false;
+    var Attributes = ["", "recipe", "calc", "sort"];
     for (const entry of entries) {
-        if (entry[0].split(splitchar)[0] == '' || entry[0].split(splitchar)[0] == 'recipe' || entry[0].split(splitchar)[0] == 'calc') continue;
+        if ((Attributes.indexOf(entry[0].split(splitchar)[0]) > -1))  continue;
         var li = document.createElement("li");
         li.setAttribute("draggable", "true");
-        li.setAttribute("class", "entry");
+        if (sort_active) {
+            li.setAttribute('class', 'entry sortactive');
+        } else {
+            li.setAttribute("class", "entry");
+        }
         li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));
         li.appendChild(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
         li.appendChild(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
@@ -277,8 +311,20 @@ li.entry:before {
     }
     document.getElementById("mainform").append(calc);
 
+    var sort_class = (sort_active) ? 'sort_btn_active' : 'sort_btn_inactive';
+    var sort = document.createElement("input")
+    sort.setAttribute("type", "button");
+    sort.setAttribute("value", " ");
+    sort.setAttribute('class', sort_class);
+    sort.setAttribute("id", "sort_btn");
+    sort.onclick = function() {
+        toggle_sort();
+    }
+    document.getElementById("mainform").append(sort);
+
     const sortableList = document.getElementById("sortable");
     let draggedItem = null;
+
 
     if (!touchscreen) {
         // inspired by https://www.geeksforgeeks.org/create-a-drag-and-drop-sortable-list-using-html-css-javascript/
@@ -369,5 +415,6 @@ li.entry:before {
                 { offset: Number.NEGATIVE_INFINITY }
             ).element;
         };
+    
 </script>
 </html>

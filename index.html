@@ -154,8 +154,7 @@ h1 {
 p {
     margin: 0.5rem 0 0.5rem;
 }
-@media print
-{    
+@media print {    
     input[type="button"], li.entry:before {
         display: none !important;
     }
@@ -167,6 +166,19 @@ p {
         margin-left:0;
         padding: 0;
     }
+}
+@media (max-width: 50em) { 
+  h1 {
+    font-size: 1rem;
+  }
+  p {
+    font-size: 0.8rem;
+}
+.modal-content {
+  margin: 10% auto;
+  padding: 12px 15px;
+  width: 80%;
+}
 }
 </style>
 </head>
@@ -187,7 +199,7 @@ p {
           <p>Simple html/javascript page to create your personal recipe book</p>
             
             <p>You can add values, units and the ingredients by hitting the plus buttom. All inputs are added to the URL-parameter. When you add the URL to your bookmarks you can recall the recipe. If you activate the calculator button, changing values in a saved recipe will recalculate values of the other ingredients. By activating the sorting button the sorting of the ingredients can be adjusted by dragging and dropping.</p>
-            <p>Find the most recent code at <a target="_blank" href="https://github.com/zenziwerken/recipe-book">https://github.com/zenziwerken/recipe-book</a></p>
+            <p>Find the most recent code at <a target="_blank" href="https://github.com/zenziwerken/recipe-book">https://github.com/&#8203zenziwerken/&#8203recipe&#8209;book</a></p>
         </div>
       </div>
 </body>

@@ -13,7 +13,8 @@
 body {
     margin: 0;
     padding: 0 5vw;
-  font-style: normal;
+  font-style: normal;  
+  font-family: 'Open Sans', sans-serif;
 }
 input {
   font-family: 'Open Sans';
@@ -106,6 +107,53 @@ input[type="button"] {
     opacity: 0.4; /* Reduziert die Sichtbarkeit, anstatt das Element auszublenden */
 }
 
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px 25px;
+  border: 1px solid #888;
+  width: 50%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px #3336;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: -0.5rem;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+h1 {
+    margin: 0;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    border-bottom: 1px solid darkgray;
+}
+p {
+    margin: 0.5rem 0 0.5rem;
+}
 @media print
 {    
     input[type="button"], li.entry:before {
@@ -132,7 +180,16 @@ input[type="button"] {
             </ul>
         </div>
     </form>
-
+    <div id="info" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+        <h1>recipe-book</h1>
+          <p>Simple html/javascript page to create your personal recipe book</p>
+            
+            <p>You can add values, units and the ingredients by hitting the plus buttom. All inputs are added to the URL-parameter. When you add the URL to your bookmarks you can recall the recipe. If you activate the calculator button, changing values in a saved recipe will recalculate values of the other ingredients. By activating the sorting button the sorting of the ingredients can be adjusted by dragging and dropping.</p>
+            <p>Find the most recent code at <a target="_blank" href="https://github.com/zenziwerken/recipe-book">https://github.com/zenziwerken/recipe-book</a></p>
+        </div>
+      </div>
 </body>
 
 <script>
@@ -178,9 +235,12 @@ input[type="button"] {
 
 		Array.from(form.elements).forEach((input) => {
 			if (input.type === "text" && input.name === "value" && input !== element) {
-				var newval = strip(input.getAttribute("oldvalue") * factor);
-				input.value = newval;
-				input.setAttribute("oldvalue", newval);
+                var oldval = input.getAttribute("oldvalue");
+                var newval = strip(oldval * factor);
+                if (newval != 0 && !isNaN(newval)) {
+                    input.value = newval;
+                    input.setAttribute("oldvalue", newval);
+                }
 			}
 	    });
         update_url();
@@ -262,7 +322,7 @@ input[type="button"] {
     }
 
     var has_edit = false;
-    var Attributes = ["", "recipe", "calc", "sort"];
+    var Attributes = ["recipe", "calc", "sort"];
     for (const entry of entries) {
         if ((Attributes.indexOf(entry[0].split(splitchar)[0]) > -1))  continue;
         var li = document.createElement("li");
@@ -272,8 +332,8 @@ input[type="button"] {
         } else {
             li.setAttribute("class", "entry");
         }
-        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], 'Menge', 'recalculate'));
-        li.appendChild(MycreateElement('unit', entry[0].split(splitchar)[1], 'g', ''));
+        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], '', 'recalculate'));
+        li.appendChild(MycreateElement('unit', entry[0].split(splitchar)[1], '', ''));
         li.appendChild(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
         document.getElementById("sortable").appendChild(li);
         has_edit = true;
@@ -324,6 +384,15 @@ input[type="button"] {
         toggle_sort();
     }
     document.getElementById("mainform").append(sort);
+
+    var info = document.createElement("input")
+    info.setAttribute("type", "button");
+    info.setAttribute("value", "?");
+    info.setAttribute('class', 'info');
+    info.onclick = function() {
+        document.getElementById("info").style.display = "block";
+    }
+    document.getElementById("mainform").append(info);
 
     const sortableList = document.getElementById("sortable");
     let draggedItem = null;
@@ -421,6 +490,18 @@ input[type="button"] {
                 { offset: Number.NEGATIVE_INFINITY }
             ).element;
         };
-    
+        
+var modal = document.getElementById("info");
+var btn   = document.getElementById("infobtn");
+var span  = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 </script>
 </html>

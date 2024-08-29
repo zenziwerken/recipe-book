@@ -42,6 +42,9 @@ input[type="button"] {
     height: 2.2rem;
     padding: 0 0 0.1rem;
 }
+.info {
+    font-size: 1.4rem!important;
+}
 #recipe {
     padding: 0.5rem;
     font-size: 1rem;
@@ -108,7 +111,7 @@ input[type="button"] {
 }
 
 .modal {
-  display: none; 
+  display: none;
   position: fixed;
   z-index: 1; 
   left: 0;
@@ -116,7 +119,6 @@ input[type="button"] {
   width: 100%; 
   height: 100%; 
   overflow: auto; 
-  background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4); 
 }
 
@@ -220,6 +222,7 @@ p {
         element.setAttribute("type", "text");
         element.setAttribute("name",  name);
         element.setAttribute("class", name);
+        element.setAttribute("autocomplete", "off");
         if (value !== '') element.setAttribute("value", value);
         if (value !== '' && name == 'value') element.setAttribute("oldvalue",value);
         element.setAttribute("placeholder", placeholder);
@@ -291,7 +294,7 @@ p {
         } else {
             li.setAttribute('class', 'entry');
         }
-        var value = MycreateElement('value', '', 'Menge', 'recalculate');
+        var value = MycreateElement('value', '', 'Menge', '');
         li.appendChild(value);
         value.focus();
         li.appendChild(MycreateElement('unit', '', 'g', ''));
@@ -401,7 +404,7 @@ p {
     info.setAttribute("type", "button");
     info.setAttribute("value", "?");
     info.setAttribute('class', 'info');
-    info.onclick = function() {
+    info.onclick = function() {    
         document.getElementById("info").style.display = "block";
     }
     document.getElementById("mainform").append(info);
@@ -508,11 +511,11 @@ var btn   = document.getElementById("infobtn");
 var span  = document.getElementsByClassName("close")[0];
 
 span.onclick = function() {
-  modal.style.display = "none";
+    modal.style.display = "none";  
 }
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+    modal.style.display = "none";  
   }
 }
 </script>

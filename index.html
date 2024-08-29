@@ -302,6 +302,7 @@ p {
     }
 
     function toggle_calc() {
+        if (sort_active) toggle_sort();
         calc_active = !calc_active;
         var calc_class = (calc_active) ? 'calc_btn_active' : 'calc_btn_inactive';
         document.getElementById('calc_btn').setAttribute('class', calc_class);

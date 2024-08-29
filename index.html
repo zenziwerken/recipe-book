@@ -233,8 +233,7 @@ p {
     }
 
     function recalculate (element) {
-        if (!calc_active || element.name === "ingredient") {
-            update_url();
+        if (!calc_active) {
             return;
         }
         if (typeof element.getAttribute("oldvalue") === 'undefined' || 
@@ -294,12 +293,12 @@ p {
         } else {
             li.setAttribute('class', 'entry');
         }
-        var value = MycreateElement('value', '', 'Menge', '');
+        var value = MycreateElement('value', '', 'Menge', 'recalculate');
         li.appendChild(value);
-        value.focus();
         li.appendChild(MycreateElement('unit', '', 'g', ''));
         li.appendChild(MycreateElement('ingredient', '', 'Zutat', 'update_url'));
         document.getElementById('sortable').appendChild(li);
+        value.focus();
     }
 
     function toggle_calc() {
@@ -347,7 +346,7 @@ p {
         } else {
             li.setAttribute("class", "entry");
         }
-        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], '', ''));
+        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], '', 'recalculate'));
         li.appendChild(MycreateElement('unit', entry[0].split(splitchar)[1], '', ''));
         li.appendChild(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
         document.getElementById("sortable").appendChild(li);

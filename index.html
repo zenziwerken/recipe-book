@@ -347,7 +347,7 @@ p {
         } else {
             li.setAttribute("class", "entry");
         }
-        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], '', 'recalculate'));
+        li.appendChild(MycreateElement('value', entry[0].split(splitchar)[0], '', ''));
         li.appendChild(MycreateElement('unit', entry[0].split(splitchar)[1], '', ''));
         li.appendChild(MycreateElement('ingredient', entry[0].split(splitchar)[2],'Zutat', 'update_url'));
         document.getElementById("sortable").appendChild(li);

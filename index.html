@@ -309,7 +309,7 @@ p {
     }
 
     function toggle_sort() {
-        if (calc_class) toggle_calc();
+        if (calc_active) toggle_calc();
         document.querySelectorAll(".entry").forEach(el => {
                 el.classList.toggle("sortactive");
             });
